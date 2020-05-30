@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.google.zxing.integration.android.IntentIntegrator
+import kotlinx.android.synthetic.main.fragment_result_scan.*
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -25,11 +26,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         if(aller)
         {
-            setContentView(R.layout.activity_main)
+            //setContentView(R.layout.activity_main)
             val scanner = IntentIntegrator(this)
             scanner.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
             scanner.setBeepEnabled(false)
             scanner.initiateScan()
+            getInfoJsonFromApi("737628064502")
         }
         else
         {
@@ -67,7 +69,9 @@ class MainActivity : AppCompatActivity() {
                 else
                 {
                     // Requette API
+
                     getInfoJsonFromApi("737628064502")
+                    //getInfoJsonFromApi(result.contents)
                 }
             } else
             {
@@ -87,8 +91,11 @@ class MainActivity : AppCompatActivity() {
                 val content = (JSONObject(json)["code"] as String)
 
                 runOnUiThread {
-                    Log.d("Data",content)
+                    // Afficher la data reçu
+                    setContentView(R.layout.fragment_result_scan)
+                    textView.text = "chocolat"
                 }
+
             }
         })
     }
