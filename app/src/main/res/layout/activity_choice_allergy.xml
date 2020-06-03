@@ -39,20 +39,24 @@
             android:id="@+id/question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
-            android:text="@string/question"
+            android:text="@string/question_text"
+            android:textColor="@color/colorText"
+            android:textSize="22dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
 
         <TextView
-            android:id="@+id/milk_allergy"
+            android:id="@+id/milk_allergy_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="56dp"
-            android:text="@string/milk_allergy"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/milk_allergy_text"
+            android:textColor="@color/colorText"
+            android:textSize="18dp"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/question" />
 
         <Switch
@@ -60,52 +64,57 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
-            app:layout_constraintBottom_toBottomOf="@+id/milk_allergy"
+            app:layout_constraintBottom_toBottomOf="@+id/milk_allergy_text"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
-            android:id="@+id/wheat_allergy"
+            android:id="@+id/wheat_allergy_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/wheat_allergy"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/milk_allergy" />
+            android:text="@string/wheat_allergy_text"
+            android:textColor="@color/colorText"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+            app:layout_constraintStart_toEndOf="@+id/imageView2" />
 
         <Switch
             android:id="@+id/wheat_allergy_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
-            app:layout_constraintBottom_toBottomOf="@+id/wheat_allergy"
+            app:layout_constraintBottom_toBottomOf="@+id/wheat_allergy_text"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
-            android:id="@+id/mustard_allergy"
+            android:id="@+id/mustard_allergy_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/mustard_allergy"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wheat_allergy" />
+            android:text="@string/mustard_allergy_text"
+            android:textColor="@color/colorText"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+            app:layout_constraintStart_toEndOf="@+id/imageView3" />
 
         <Switch
             android:id="@+id/mustard_allergy_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="28dp"
-            app:layout_constraintBottom_toBottomOf="@+id/mustard_allergy"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintBottom_toBottomOf="@+id/mustard_allergy_text"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
             android:id="@+id/saveButton"
-            android:layout_width="wrap_content"
+            android:layout_width="142dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="56dp"
+            android:background="@color/colorPrimary"
             android:onClick="saveAllergies"
-            android:text="@string/save"
+            android:text="@string/save_text"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -118,6 +127,35 @@
             app:layout_constraintBottom_toTopOf="@+id/saveButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            app:layout_constraintBottom_toBottomOf="@+id/milk_allergy_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_lait" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:srcCompat="@drawable/ic_ble" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:srcCompat="@drawable/ic_moutarde" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

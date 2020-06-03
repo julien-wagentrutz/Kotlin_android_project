@@ -15,9 +15,9 @@
 
 
     <!--Strings used for allergies choice-->
-    <string name="question">A quoi êtes-vous allergique ?</string>
-    <string name="milk_allergy">Lait</string>
-    <string name="mustard_allergy">Moutarde</string>
-    <string name="wheat_allergy">Blé</string>
-    <string name="save">Enregistrer</string>
+    <string name="question_text">A quoi êtes-vous allergique ?</string>
+    <string name="milk_allergy_text">Lait</string>
+    <string name="mustard_allergy_text">Moutarde</string>
+    <string name="wheat_allergy_text">Blé</string>
+    <string name="save_text">Enregistrer</string>
 </resources>
