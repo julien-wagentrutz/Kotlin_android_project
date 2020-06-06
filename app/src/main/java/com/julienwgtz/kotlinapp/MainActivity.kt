@@ -2,15 +2,12 @@ package com.julienwgtz.kotlinapp
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.zxing.integration.android.IntentIntegrator
-import kotlinx.android.synthetic.main.fragment_result_scan.*
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -24,14 +21,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //val sharedPref = getPreferences(Context.MODE_PRIVATE)
+
         if(aller)
         {
-            //setContentView(R.layout.activity_main)
+            setContentView(R.layout.activity_main)
             val scanner = IntentIntegrator(this)
-            scanner.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
-            scanner.setBeepEnabled(false)
             scanner.initiateScan()
-            getInfoJsonFromApi("737628064502")
         }
         else
         {
@@ -57,6 +54,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
     {
+
         if (resultCode == Activity.RESULT_OK)
         {
             val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
@@ -65,13 +63,13 @@ class MainActivity : AppCompatActivity() {
                 if (result.contents == null)
                 {
                     Toast.makeText(this, "Nous avons rien trouvé", Toast.LENGTH_LONG).show()
+
                 }
                 else
                 {
                     // Requette API
-
-                    getInfoJsonFromApi("737628064502")
-                    //getInfoJsonFromApi(result.contents)
+                    //getInfoJsonFromApi("737628064502")
+                    getInfoJsonFromApi(result.contents)
                 }
             } else
             {
@@ -80,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getInfoJsonFromApi(codeBarre : String) {
+    private fun getInfoJsonFromApi(codeBarre : String ) {
         val fullUrl = URL + codeBarre + ".json"
         val request: Request = Request.Builder().url(fullUrl).build()
         okHttpClient.newCall(request).enqueue(object : Callback {
@@ -89,14 +87,31 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call?, response: Response?) {
                 val json = response?.body()?.string()
                 val content = (JSONObject(json)["code"] as String)
+                val name = (JSONObject(json).getJSONObject("product")["generic_name"] as String)
 
                 runOnUiThread {
-                    // Afficher la data reçu
-                    setContentView(R.layout.fragment_result_scan)
-                    textView.text = "chocolat"
+                    val parsedValue = json
+                    val bundle = Bundle()
+                    bundle.putString("bundleValue", parsedValue)
+                    val resultScan = ResultScan()
+                    resultScan.setArguments(bundle)
+
+                    val manager = supportFragmentManager
+                    val transaction = manager.beginTransaction()
+                    transaction.replace(R.id.fragment_container,resultScan)
+                    transaction.addToBackStack(null)
+
+                    // Finishing the transition
+                    transaction.commitAllowingStateLoss();
                 }
 
             }
         })
+    }
+
+    override fun onBackPressed() {
+
+        val scanner = IntentIntegrator(this)
+        scanner.initiateScan()
     }
 }
