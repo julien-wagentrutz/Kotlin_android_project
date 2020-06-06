@@ -1,6 +1,5 @@
 package com.julienwgtz.kotlinapp
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.util.Log
@@ -13,13 +12,9 @@ import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_result_scan.*
 import org.json.JSONObject
-import java.io.InputStream
-import java.lang.reflect.Array
-import java.net.URL
 
 
 class ResultScan : Fragment() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -40,14 +35,30 @@ class ResultScan : Fragment() {
         val view = inflater.inflate(R.layout.fragment_result_scan, container, false)
         Picasso.get().load(url).into(view.findViewById<ImageView>(R.id.imageView4))
         view.findViewById<TextView>(R.id.productName).setText(name)
-        Log.d("allergy",codeBar )
 
-        if(allergensString.length > 0 )
-        {
-            val allergens = allergensString.split(",")
-            for (allergy in allergens)
-            {
-                Log.d("allergy",allergy.substringAfter(":") )
+        val extras = Bundle()
+        if(extras != null) {
+            val hashMap = arguments?.getSerializable("HashMap")
+            if(hashMap != null) {
+                hashMap as HashMap<String,Boolean>
+                val ElementAller = view.findViewById<TextView>(R.id.contienAllergy)
+                if (hashMap["milk"]!!) {
+
+                    val text = view.findViewById<TextView>(R.id.allergyText)
+                    ElementAller.visibility = View.VISIBLE
+                    text.text = text.text.toString() + "\n Du  Lait"
+                }
+                if (hashMap["gluten"]!!){
+                    val text = view.findViewById<TextView>(R.id.allergyText)
+                    ElementAller.visibility = View.VISIBLE
+                    text.text = text.text.toString() + " \n Du Gluten"
+                }
+                if (hashMap["fish"]!!) {
+
+                    val text = view.findViewById<TextView>(R.id.allergyText)
+                    ElementAller.visibility = View.VISIBLE
+                    text.text = text.text.toString() + " \n Du Poisson"
+                }
             }
         }
 

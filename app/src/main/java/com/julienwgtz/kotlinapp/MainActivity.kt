@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_result_scan.*
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -23,15 +24,18 @@ import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
 
-    val aller = true
+    var aller = true
     val URL = "https://world.openfoodfacts.org/api/v0/product/"
     var okHttpClient: OkHttpClient = OkHttpClient()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //val sharedPref = getPreferences(Context.MODE_PRIVATE)
-
+        val userAllergiesReader = getSharedPreferences("com.julienwgtz.kotlinapp", Context.MODE_PRIVATE)
+        if(!userAllergiesReader.getBoolean("gluten", false) && !userAllergiesReader.getBoolean("milk", false) && !userAllergiesReader.getBoolean("fish", false))
+        {
+            aller = false
+        }
         if(aller)
         {
             setContentView(R.layout.activity_main)
@@ -97,11 +101,47 @@ class MainActivity : AppCompatActivity() {
                 if((JSONObject(json)["status_verbose"] as String) == "product found")
                 {
 
+                    val userAllergiesReader = getSharedPreferences("com.julienwgtz.kotlinapp", Context.MODE_PRIVATE)
+                    val resultScan = ResultScan()
+                    val bundle = Bundle()
+
+
+                    val allergensString = (JSONObject(json).getJSONObject("product")["allergens"] as String)
+                    if(allergensString.length > 0 )
+                    {
+                        val allergens = allergensString.split(",")
+
+                        var allerges = HashMap<String, Boolean>()
+                        allerges.put("milk" , false)
+                        allerges.put("gluten",false)
+                        allerges.put("fish" , false)
+
+
+                        for (allergy in allergens)
+                        {
+
+                            if((userAllergiesReader.getBoolean("milk", false) && allergy.substringAfter(":") == "milk")  )
+                            {
+                                allerges["milk"] = true
+                            }
+                            if(userAllergiesReader.getBoolean("gluten", false) && allergy.substringAfter(":") == "gluten")
+                            {
+                                allerges["gluten"] = true
+                            }
+
+                            if(userAllergiesReader.getBoolean("fish", false) && allergy.substringAfter(":") == "fish")
+                            {
+                                allerges["fish"] = true
+                            }
+
+                        }
+                        bundle.putSerializable("HashMap",allerges);
+                        resultScan.setArguments(bundle)
+                    }
+
                     runOnUiThread {
                         val parsedValue = json
-                        val bundle = Bundle()
                         bundle.putString("bundleValue", parsedValue)
-                        val resultScan = ResultScan()
                         resultScan.setArguments(bundle)
                         val manager = supportFragmentManager
                         val transaction = manager.beginTransaction()
