@@ -3,10 +3,8 @@ package com.julienwgtz.kotlinapp
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.activity_choice_allergy.*
 
 
@@ -23,14 +21,20 @@ class ChoiceAllergyActivity : AppCompatActivity() {
         }
         if (userAllergies.getBoolean("gluten", false))
         {
-            wheat_allergy_switch.setChecked(true)
+            gluten_allergy_switch.setChecked(true)
         }
         if (userAllergies.getBoolean("fish", false))
         {
+            fish_allergy_switch.setChecked(true)
+        }
+        if (userAllergies.getBoolean("mustard", false))
+        {
             mustard_allergy_switch.setChecked(true)
         }
-
-
+        if (userAllergies.getBoolean("egg", false))
+        {
+            egg_allergy_switch.setChecked(true)
+        }
     }
 
     fun saveAllergies(saveButton:View){
@@ -40,47 +44,36 @@ class ChoiceAllergyActivity : AppCompatActivity() {
         if (milk_allergy_switch.isChecked){
             userAllergies.putBoolean("milk", true)
         }
-        if (wheat_allergy_switch.isChecked){
+        if (gluten_allergy_switch.isChecked){
             userAllergies.putBoolean("gluten", true)
         }
-        if (mustard_allergy_switch.isChecked){
+        if (fish_allergy_switch.isChecked){
             userAllergies.putBoolean("fish", true)
+        }
+        if (mustard_allergy_switch.isChecked){
+            userAllergies.putBoolean("mustard", true)
+        }
+        if (egg_allergy_switch.isChecked){
+            userAllergies.putBoolean("egg", true)
         }
         // if an allergy is not checked, set it false in shared preferences
         if (!milk_allergy_switch.isChecked){
             userAllergies.putBoolean("milk", false)
         }
-        if (!wheat_allergy_switch.isChecked){
+        if (!gluten_allergy_switch.isChecked){
             userAllergies.putBoolean("gluten", false)
         }
-        if (!mustard_allergy_switch.isChecked){
+        if (!fish_allergy_switch.isChecked){
             userAllergies.putBoolean("fish", false)
+        }
+        if (!mustard_allergy_switch.isChecked){
+            userAllergies.putBoolean("mustard", false)
+        }
+        if (!egg_allergy_switch.isChecked){
+            userAllergies.putBoolean("egg", false)
         }
         // save shared preferences
         userAllergies.apply()
-        // test
-        showAllergies()
         startActivity(Intent(this, MainActivity::class.java))
-    }
-
-    // test to see if it works
-    fun showAllergies(){
-        // creation of shared preferences reader
-        val userAllergiesReader = getSharedPreferences("com.julienwgtz.kotlinapp", Context.MODE_PRIVATE)
-
-        var milk_test = userAllergiesReader.getBoolean("milk", false)
-        if (milk_test){
-            testResult.text = "Allergique au lait"
-        }
-
-        var wheat_test = userAllergiesReader.getBoolean("gluten", false)
-        if (wheat_test){
-            testResult.text = "Allergique au gluten"
-        }
-
-        var mustard_test = userAllergiesReader.getBoolean("fish", false)
-        if (mustard_test){
-            testResult.text = "Allergique aux poissons"
-        }
     }
 }

@@ -13,25 +13,34 @@
         android:id="@+id/productName"
         android:layout_width="392dp"
         android:layout_height="wrap_content"
-        android:text="Produit pas trouvé"
-        />
+        android:textColor="@color/colorText"
+        android:fontFamily="@font/open_sans"
+        android:textSize="14dp"
+        android:gravity="center"
+        android:text="Produit inconnu" />
 
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="match_parent"
-        android:layout_height="224dp"
+        android:layout_height="200dp"
         android:autoLink="web"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/contienAllergy"
-        android:text="Attention ce produit contiens :"
+        android:text="Attention ce produit contient :"
+        android:textColor="@color/colorText"
+        android:fontFamily="@font/open_sans"
+        android:textSize="14dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="invisible" />
 
     <TextView
         android:id="@+id/allergyText"
+        android:textColor="@color/colorText"
+        android:fontFamily="@font/open_sans"
+        android:textSize="14dp"
         android:text=""
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
