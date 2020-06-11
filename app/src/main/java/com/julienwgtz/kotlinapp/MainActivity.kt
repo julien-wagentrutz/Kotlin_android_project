@@ -115,6 +115,9 @@ class MainActivity : AppCompatActivity() {
                         allerges.put("milk" , false)
                         allerges.put("gluten",false)
                         allerges.put("fish" , false)
+                        allerges.put("fish" , false)
+                        allerges.put("mustard" , false)
+                        allerges.put("egg" , false)
 
 
                         for (allergy in allergens)
@@ -132,6 +135,14 @@ class MainActivity : AppCompatActivity() {
                             if(userAllergiesReader.getBoolean("fish", false) && allergy.substringAfter(":") == "fish")
                             {
                                 allerges["fish"] = true
+                            }
+                            if(userAllergiesReader.getBoolean("mustard", false) && allergy.substringAfter(":") == "mustard")
+                            {
+                                allerges["mustard"] = true
+                            }
+                            if(userAllergiesReader.getBoolean("egg", false) && allergy.substringAfter(":") == "egg")
+                            {
+                                allerges["egg"] = true
                             }
 
                         }

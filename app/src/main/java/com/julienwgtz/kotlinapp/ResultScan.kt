@@ -35,7 +35,7 @@ class ResultScan : Fragment() {
         val view = inflater.inflate(R.layout.fragment_result_scan, container, false)
         Picasso.get().load(url).into(view.findViewById<ImageView>(R.id.imageView4))
         view.findViewById<TextView>(R.id.productName).setText(name)
-
+        var checkTest = false;
         val extras = Bundle()
         if(extras != null) {
             val hashMap = arguments?.getSerializable("HashMap")
@@ -46,19 +46,42 @@ class ResultScan : Fragment() {
 
                     val text = view.findViewById<TextView>(R.id.allergyText)
                     ElementAller.visibility = View.VISIBLE
+                    checkTest = true
                     text.text = text.text.toString() + "\n Du  Lait"
                 }
                 if (hashMap["gluten"]!!){
                     val text = view.findViewById<TextView>(R.id.allergyText)
                     ElementAller.visibility = View.VISIBLE
+                    checkTest = true
                     text.text = text.text.toString() + " \n Du Gluten"
                 }
                 if (hashMap["fish"]!!) {
 
                     val text = view.findViewById<TextView>(R.id.allergyText)
                     ElementAller.visibility = View.VISIBLE
+                    checkTest = true
                     text.text = text.text.toString() + " \n Du Poisson"
                 }
+                if (hashMap["mustard"]!!) {
+
+                    val text = view.findViewById<TextView>(R.id.allergyText)
+                    ElementAller.visibility = View.VISIBLE
+                    checkTest = true
+                    text.text = text.text.toString() + " \n De la moutard"
+                }
+                if (hashMap["egg"]!!) {
+
+                    val text = view.findViewById<TextView>(R.id.allergyText)
+                    ElementAller.visibility = View.VISIBLE
+                    checkTest = true
+                    text.text = text.text.toString() + " \n Des oeufs"
+                }
+            }
+            if(checkTest)
+            {
+                val iconToSet = view.findViewById<ImageView>(R.id.checkResult)
+                val iconCheck = resources.getDrawable(R.drawable.ic_checknotgood)
+                iconToSet.setImageDrawable(iconCheck);
             }
         }
 

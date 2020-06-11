@@ -5,13 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/transparent"
+    android:background="?attr/colorBackgroundFloating"
     android:padding="16dp"
-    android:backgroundTint="@android:color/transparent">
+    android:backgroundTint="@android:color/white">
+
+    <ImageView
+        android:id="@+id/checkResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_checkgood" />
 
     <TextView
         android:id="@+id/productName"
-        android:layout_width="392dp"
+        android:layout_width="379dp"
         android:layout_height="wrap_content"
         android:textColor="@color/colorText"
         android:fontFamily="@font/open_sans"
